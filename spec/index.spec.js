@@ -484,4 +484,23 @@ describe('_', () => {
             expect(_.difference([23, 56, 56], [1, 2, 23, 56, 56, 53], [23, 56, 56, 2, 34, 578, 6, 9])).to.eql([1, 53, 34, 578, 6, 9]);
         });
     });
+    describe('#throttle', () => {
+        it('returns the same value if the time hasn\'t lapsed', () => {
+            const func = function () { return Math.random(); };
+            const test = _.throttle(func, 1000);
+            const initialValue = test();
+            const secondValue = test();
+            expect(initialValue).to.equal(secondValue);
+        });
+        it('runs a second time if the time has lapsed, resulting in a second value', (done) => {
+            const func = function () { return Math.random(); };
+            const test = _.throttle(func, 1000);
+            const initialValue = test();
+            setTimeout(() => {
+                const secondValue = test();
+                expect(initialValue).to.not.equal(secondValue);
+                done();
+            }, 1000);
+        });
+    });
 });
