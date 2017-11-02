@@ -43,6 +43,39 @@ _.last = (list, n) => {
       return list;
     }
   };
+  
+  _.indexOf = (list, value, sorted) => {
+    if (!sorted) {
+      let found = -1;
+      list.forEach((elem, i) => {
+        if (elem === value) found = i;
+      });
+      return found;
+    }
+    else {
+      return binaryIndexOf(list, value);
+    }
+  };
 if (typeof module !== 'undefined') {
     module.exports = _;
 }
+
+function binaryIndexOf(array, searchElement) {
+    let start = 0;
+    let stop = array.length - 1;
+    let mid;
+    let element;
+  
+    while (start <= stop) {
+      mid = Math.floor((start + stop) / 2, 10);
+      element = array[mid];
+      if (element < searchElement) {
+        start = mid + 1;
+      } else if (element > searchElement) {
+        stop = mid - 1;
+      } else {
+        return mid;
+      }
+    }
+    return -1;
+  }
