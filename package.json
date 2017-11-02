@@ -1,0 +1,28 @@
+{
+  "name": "lowbar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./spec/",
+    "lint": "eslint ./",
+    "posttest": "npm run lint",
+    "precommit": "npm test"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.15.0",
+    "husky": "^0.13.1",
+    "sinon": "^2.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SDMoxon/lowbar.git"
+  },
+  "author": "Steven Moxon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SDMoxon/lowbar/issues"
+  },
+  "homepage": "https://github.com/SDMoxon/lowbar#readme"
+}
