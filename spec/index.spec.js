@@ -369,4 +369,24 @@ describe('_', () => {
             expect(spy.callCount).to.equal(1);
         });
     });
+    describe('#shuffle', () => {
+        it('will return a shuffled array of the same length', () => {
+            const input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            const output = _.shuffle(input);
+            output();
+            expect(input).to.not.eql(output());
+            expect(input.length).to.equal(output().length);
+            expect(input).to.be.eql(output().sort(function (a, b) {
+                return a - b;
+            }));
+        });
+        it('will return an array of shuffled object keys', () => {
+            const input = { a: 1, b: 2, c: 3, d: 4, e: 5 };
+            const output = _.shuffle(input);
+            expect(output()).to.be.an('array');
+            expect(output().sort(function (a, b) {
+                return a - b;
+            })).to.be.eql([1, 2, 3, 4, 5]);
+        });
+    });
 });
