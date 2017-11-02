@@ -404,10 +404,10 @@ describe('_', () => {
         });
     });
     describe('#sortBy', () => {
-    
+
         it('sorts values of a list based on the function provided for an array', () => {
             expect(_.sortBy([1, 2, 3, 4, 5, 6], (num) => { return Math.sin(num); })).to.eql([5, 4, 6, 3, 1, 2]);
-    
+
         });
         it('sorts values of a list based on the function provided for an object', () => {
             expect(_.sortBy({ a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 }, (num) => { return Math.sin(num); })).to.eql([5, 4, 6, 3, 1, 2]);
@@ -434,6 +434,21 @@ describe('_', () => {
         });
         it('when used with apply can be used for nested arrays', () => {
             expect(_.zip.apply(null, [[1, 2], ['a', 'b']])).to.eql([[1, 'a'], [2, 'b']]);
+        });
+    });
+    describe('#sortedIndex', () => {
+        it('Determines the index at which the value should be inserted into the list', () => {
+            expect(_.sortedIndex([10, 20, 30, 40, 50], 35)).to.equal(3);
+        });
+        it('If a string iteratee is provided, it will be used to compute the sort ranking of each value', () => {
+            var stooges = [{ name: 'moe', age: 40 }, { name: 'curly', age: 60 }];
+            expect(_.sortedIndex(stooges, { name: 'larry', age: 50 }, 'age')).to.equal(1);
+        });
+        it('If an iteratee function is provided, it will be used to compute the sort ranking of each value', () => {
+            const iteratee = (value) => {
+                return value !== 35 ? value * 100 : value;
+            };
+            expect(_.sortedIndex([10, 20, 30, 40, 50], 35, iteratee)).to.equal(0);
         });
     });
 });
