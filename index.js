@@ -300,3 +300,30 @@ _.zip = (...args) => {
     _.each(args, cb);
     return results;
 };
+_.sortedIndex = (list, value, iteratee, context) => {
+    const thisParam = context || this;
+    const processor = iteratee || function (item) { return item; };
+    let low = 0;
+    let high = list.length;
+    const cb = (input) => {
+        if (typeof input === 'object') {
+            return input[processor];
+        }
+        else {
+            return processor.call(thisParam, input);
+        }
+    };
+
+    const processedValue = cb(value);
+
+    while (low < high) {
+        const mid = Math.floor((low + high) / 2);
+        if (cb(list[mid]) < processedValue) {
+            low = mid + 1;
+        }
+        else {
+            high = mid;
+        }
+    }
+    return low;
+};
