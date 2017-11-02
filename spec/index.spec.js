@@ -468,4 +468,12 @@ describe('_', () => {
             expect(_.flatten(list, true)).to.eql([1, [2], 3, 4]);
         });
     });
+    describe('#intersection', () => {
+        it('finds the difference of any given arrays', () => {
+            expect(_.intersection([23, 56], [1, 2, 23, 56, 53], [23, 56, 2, 34, 578, 6, 9])).to.eql([23, 56]);
+        });
+        it('doesn\'t repeat intersections', () => {
+            expect(_.intersection([23, 56, 56], [1, 2, 23, 56, 56, 53], [23, 56, 56, 2, 34, 578, 6, 9])).to.eql([23, 56]);
+        });
+    });
 });
