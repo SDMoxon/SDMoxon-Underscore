@@ -404,3 +404,24 @@ describe('_', () => {
         });
     });
 });
+describe('#sortBy', () => {
+
+    it('sorts values of a list based on the function provided for an array', () => {
+        expect(_.sortBy([1, 2, 3, 4, 5, 6], (num) => { return Math.sin(num); })).to.eql([5, 4, 6, 3, 1, 2]);
+
+    });
+    it('sorts values of a list based on the function provided for an object', () => {
+        expect(_.sortBy({ a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 }, (num) => { return Math.sin(num); })).to.eql([5, 4, 6, 3, 1, 2]);
+    });
+    it('calls context when used', () => {
+        const context = { a: 1 };
+        _.sortBy([1, 2, 3, 4, 5, 6], function () { this.a = 100; }, context);
+        expect(context.a).to.equal(100);
+    });
+    it('sorts values of a list based on the key provided for an object', () => {
+        let stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
+        expect(_.sortBy(stooges, 'name')).to.eql([{ name: 'curly', age: 60 }, { name: 'larry', age: 50 }, { name: 'moe', age: 40 }]);
+        stooges = [{ name: 'moe', age: 70 }, { name: 'larry', age: 60 }, { name: 'curly', age: 30 }];
+        expect(_.sortBy(stooges, 'age')).to.eql([{ name: 'curly', age: 30 }, { name: 'larry', age: 60 }, { name: 'moe', age: 70 }]);
+    });
+});
