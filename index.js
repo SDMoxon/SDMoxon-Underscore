@@ -172,5 +172,31 @@ _.reduce = (list, iteratee, memo, context) => {
     return memo;
 
 };
+_.every = (list, predicate, context) => {
+    const thisParam = context || this;
+    let shortcircuit;
+    let results;
+    const truthCheck = (value) => {
+      if (!predicate.call(thisParam, value)) {
+        results = false;
+        shortcircuit = true;
+      }
+      else {
+        results = true;
+      }
+    };
+  
+    if (!Array.isArray(list) && typeof (list) !== 'string') {
+      list = Object.values(list);
+    }
+    for (var i = 0; i < list.length; i++) {
+      truthCheck(list[i]);
+      if (shortcircuit) {
+        return results;
+      }
+    }
+    return results;
+  
+  };
 
 
