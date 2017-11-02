@@ -281,4 +281,39 @@ describe('_', () => {
             expect(context.a).to.equal(1000);
         });
     });
+    describe('#every', () => {
+
+        it('if an array value fails predicate it returns false imediately', () => {
+            const predicate = (elem) => {
+                return elem % 2 === 0;
+            };
+            expect(_.every([1, 2, 3, 4, 5, 6], predicate, null)).to.be.false;
+        });
+        it('if an object value fails predicate it returns false imediately', () => {
+            const predicate = (elem) => {
+                return elem % 2 === 0;
+            };
+            expect(_.every({ a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 }, predicate, null)).to.be.false;
+        });
+        it('if all array values pass predicate it returns true', () => {
+            const predicate = (elem) => {
+                return elem % 2 === 0;
+            };
+            expect(_.every([2, 4, 6], predicate, null)).to.be.true;
+        });
+        it('if all object values pass predicate it returns true', () => {
+            const predicate = (elem) => {
+                return elem % 2 === 0;
+            };
+            expect(_.every({ b: 2, d: 4, f: 6 }, predicate, null)).to.be.true;
+        });
+        it('if given a context it will call it', () => {
+            const obj = { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 };
+            const predicate = function () {
+                this.a = 80;
+            };
+            _.every([7, 8, 23, 67, 34, 12], predicate, obj);
+            expect(obj.a).to.equal(80);
+        });
+    });
 });
