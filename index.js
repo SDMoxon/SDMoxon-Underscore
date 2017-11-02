@@ -273,3 +273,22 @@ _.invoke = (list, methodName, ...args) => {
     _.each(list, cb);
     return results;
 };
+_.sortBy = (list, iteratee, context) => {
+    const thisParam = context || this;
+    const checkedList = [];
+    const cb = (value) => {
+        checkedList.push(value);
+    };
+    const sortCb = (a, b) => {
+        if (typeof a === 'object') {
+            if (a[iteratee] < b[iteratee]) return -1;
+            if (a[iteratee] > b[iteratee]) return 1;
+            return 0;
+        }
+        else {
+            return iteratee.call(thisParam, a) - iteratee.call(thisParam, b);
+        }
+    };
+    _.each(list, cb);
+    return checkedList.sort(sortCb);
+};
