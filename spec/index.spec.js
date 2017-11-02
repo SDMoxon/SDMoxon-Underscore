@@ -194,4 +194,15 @@ describe('_', () => {
             expect(context.a).to.equal(80);
         });
     });
+    describe('#contains', () => {
+        it('returns true for a value pressent in an array', () => {
+          expect(_.contains([1, 2, 3, 4, 5], 2)).to.be.true;
+        });
+        it('returns true for a value pressent in an object', () => {
+          expect(_.contains([1, 2, 3, 4, 5], 2)).to.be.true;
+        });
+        it('returns true if value is present in slice begining with fromIndex', () => {
+          expect(_.contains([1, 1, 1, 1, 1, 1, 2, 3, 4, 5], 1, 6)).to.be.false;
+        });
+      });
 });
