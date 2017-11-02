@@ -387,3 +387,8 @@ _.throttle = (func, time) => {
         return result;
     };
 };
+_.delay = (func, time, ...args) => {
+    setTimeout(() => {
+        return func.apply(null, args);
+    }, time);
+};
