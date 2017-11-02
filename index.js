@@ -133,5 +133,14 @@ _.map = (list, iteratee, context) => {
     _.each(list, cb);
     return results;
 };
+_.contains = (list, value, fromIndex) => {
+    list = list.slice(fromIndex);
+    let indexList = [];
+    const cb = (value) => {
+      indexList.push(value);
+    };
+    _.each(list, cb);
+    return _.indexOf(indexList, value) >= 0;
+  };
 
 
