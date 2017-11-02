@@ -451,4 +451,21 @@ describe('_', () => {
             expect(_.sortedIndex([10, 20, 30, 40, 50], 35, iteratee)).to.equal(0);
         });
     });
+    describe('#flatten', () => {
+        it('flattens an array shallowly', () => {
+            const list = [[1], [[2]]];
+            expect(_.flatten(list, true)).to.eql([1, [2]]);
+
+        });
+        it('flattens an array completely', () => {
+            const list = [[1], [[2]]];
+            expect(_.flatten(list)).to.eql([1, 2]);
+
+        });
+        it('flattens an array with a mix of values and arrays', () => {
+            const list = [[1], [[2]], 3, 4];
+            expect(_.flatten(list)).to.eql([1, 2, 3, 4]);
+            expect(_.flatten(list, true)).to.eql([1, [2], 3, 4]);
+        });
+    });
 });
