@@ -341,3 +341,18 @@ _.flatten = (array, shallow) => {
     shallow ? _.each(array, shallowCb) : _.each(array, cb);
     return results;
 };
+_.intersection = (...args) => {
+    const result = [];
+    const arrays = args.sort((a, b) => {
+        return a.length - b.length;
+    });
+    const checkArray = arrays.shift();
+    
+    const cb = (value) => {
+        if (result.indexOf(value) === -1 && arrays.every((internalValue) => internalValue.indexOf(value) !== -1)) {
+            result.push(value);
+        }
+    };
+    _.each(checkArray,cb);
+    return result;
+};
