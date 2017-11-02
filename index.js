@@ -43,7 +43,7 @@ _.last = (list, n) => {
       return list;
     }
   };
-  
+
   _.indexOf = (list, value, sorted) => {
     if (!sorted) {
       let found = -1;
@@ -56,10 +56,32 @@ _.last = (list, n) => {
       return binaryIndexOf(list, value);
     }
   };
+  _.filter = (list, predicate, context) => {
+    const thisParam = context || this;
+    const results = [];
+    const cb = (value) => {
+      if (predicate.call(thisParam, value)) {
+        results.push(value);
+      }
+    };
+    _.each(list, cb);
+    return results;
+  
+  };
+  _.reject = (list, predicate, context) => {
+    const thisParam = context || this;
+    const results = [];
+    const cb = (value) => {
+      if (!predicate.call(thisParam, value)) {
+        results.push(value);
+      }
+    };
+    _.each(list, cb);
+    return results;
+  };
 if (typeof module !== 'undefined') {
     module.exports = _;
 }
-
 function binaryIndexOf(array, searchElement) {
     let start = 0;
     let stop = array.length - 1;
@@ -79,3 +101,5 @@ function binaryIndexOf(array, searchElement) {
     }
     return -1;
   }
+
+
