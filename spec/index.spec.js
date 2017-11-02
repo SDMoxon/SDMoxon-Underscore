@@ -99,4 +99,50 @@ describe('_', () => {
               expect(_.indexOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, true)).to.equal(0);
             });
           });
+          describe('#filter', () => {
+            
+            it('if not given a context calls the predicate on an array returning passing values', () => {
+              const predicate = (elem) => {
+                return elem % 2 === 0;
+              };
+              expect(_.filter([1, 2, 3, 4, 5, 6], predicate, null)).to.eql([2, 4, 6]);
+            });
+            it('if not given a context calls the predicate on an object returning passing object values', () => {
+              const predicate = (elem) => {
+                return elem % 2 === 0;
+              };
+              expect(_.filter({ a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 }, predicate, null)).to.eql([2, 4, 6]);
+            });
+            it('if given a context it will call it', () => {
+              const obj = { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 };
+              const predicate = function () {
+                this.a = 80;
+              };
+              _.filter([7, 8, 23, 67, 34, 12], predicate, obj);
+              expect(obj.a).to.equal(80);
+            });
+          });
+          describe('#Reject', () => {
+            
+            it('if not given a context calls the predicate on an array returning passing values', () => {
+              const predicate = (elem) => {
+                return elem % 2 === 0;
+              };
+              expect(_.reject([1, 2, 3, 4, 5, 6], predicate, null)).to.eql([1, 3, 5]);
+            });
+            it('if not given a context calls the predicate on an object returning passing values', () => {
+              const predicate = (elem) => {
+                return elem % 2 === 0;
+              };
+              expect(_.reject({ a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 }, predicate, null)).to.eql([1, 3, 5]);
+            });
+            it('if given a context it will call it', () => {
+              const obj = { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 };
+              const predicate = function () {
+                this.a = 80;
+              };
+              _.reject([7, 8, 23, 67, 34, 12], predicate, obj);
+              expect(obj.a).to.equal(80);
+            });
+          });
 });
