@@ -327,3 +327,17 @@ _.sortedIndex = (list, value, iteratee, context) => {
     }
     return low;
 };
+_.flatten = (array, shallow) => {
+    let results = [];
+    const cb = (value) => {
+        Array.isArray(value) ? results = results.concat(_.flatten(value))
+            :
+            results = results.concat(value);
+    };
+    const shallowCb = (value) => {
+        results = results.concat(value);
+    };
+
+    shallow ? _.each(array, shallowCb) : _.each(array, cb);
+    return results;
+};
