@@ -137,10 +137,40 @@ _.contains = (list, value, fromIndex) => {
     list = list.slice(fromIndex);
     let indexList = [];
     const cb = (value) => {
-      indexList.push(value);
+        indexList.push(value);
     };
     _.each(list, cb);
     return _.indexOf(indexList, value) >= 0;
-  };
+};
+_.pluck = (list, propertyName) => {
+    const results = [];
+    const cb = (value) => {
+        results.push(value[propertyName]);
+    };
+    _.each(list, cb);
+    return results;
+
+};
+_.reduce = (list, iteratee, memo, context) => {
+    const thisParam = context || this;
+    const cb = (value) => {
+        memo = iteratee.call(thisParam, memo, value);
+
+    };
+    if (memo === undefined || null) {
+        if (!Array.isArray(list) && typeof (list) !== 'string') {
+            const key = [Object.keys(list)[0]];
+            memo = list[key];
+            delete list[key];
+        }
+        else {
+            memo = list[0];
+            list = list.slice(1);
+        }
+    }
+    _.each(list, cb);
+    return memo;
+
+};
 
 
