@@ -351,4 +351,13 @@ describe('_', () => {
             expect(obj.a).to.equal(80);
         });
     });
+    describe('#once', () => {
+        it('will call a function once', () => {
+            const spy = sinon.spy();
+            var onceSpied = _.once(spy);
+            onceSpied();
+            onceSpied();
+            expect(spy.callCount).to.equal(1);
+        });
+    });
 });
