@@ -225,3 +225,12 @@ function binaryIndexOf(array, searchElement) {
     }
     return -1;
 }
+_.once = (fn) => {
+    let called = false;
+    return () => {
+        if (!called) {
+            called = true;
+            return fn.apply(null, arguments);
+        }
+    };
+};
