@@ -91,4 +91,12 @@ describe('_', () => {
         
             });
           });
+          describe('#indexOf', () => {
+            it('returns the index for the value specified', () => {
+              expect(_.indexOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 4)).to.equal(3);
+            });
+            it('returns the index for the value specified', () => {
+              expect(_.indexOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, true)).to.equal(0);
+            });
+          });
 });
