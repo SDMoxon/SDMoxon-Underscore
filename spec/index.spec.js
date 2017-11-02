@@ -360,4 +360,13 @@ describe('_', () => {
             expect(spy.callCount).to.equal(1);
         });
     });
+    describe('#memoize', () => {
+        it('if Answer has already been encountered it will only run the function once', () => {
+            const spy = sinon.spy();
+            var memoizedSpy = _.memoize(spy);
+            memoizedSpy();
+            memoizedSpy();
+            expect(spy.callCount).to.equal(1);
+        });
+    });
 });
