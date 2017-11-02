@@ -265,3 +265,11 @@ _.shuffle = (list) => {
         return permitation;
     };
 };
+_.invoke = (list, methodName, ...args) => {
+    const results = [];
+    const cb = (value) => {
+        results.push(value[methodName].apply(value, args));
+    };
+    _.each(list, cb);
+    return results;
+};
