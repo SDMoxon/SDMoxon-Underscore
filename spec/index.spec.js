@@ -503,4 +503,24 @@ describe('_', () => {
             }, 1000);
         });
     });
+    describe('#delay', () => {
+        it('Runs the function after the delay', (done) => {
+            const spy = sinon.spy();
+            _.delay(spy, 1000);
+            expect(spy.called).to.equal(false);
+
+            setTimeout(() => {
+                expect(spy.called).to.equal(true);
+                done();
+            }, 1000);
+        });
+        it('Uses arguments if provided', (done) => {
+            const spy = sinon.spy();
+            _.delay(spy, 1000, 'abc', 'def');
+            setTimeout(() => {
+                expect(spy.calledWith('abc', 'def')).to.equal(true);
+                done();
+            }, 1001);
+        });
+    });
 });
