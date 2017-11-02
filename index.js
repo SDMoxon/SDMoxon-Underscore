@@ -370,3 +370,20 @@ _.difference = (...args) => {
     return result;
 
 };
+_.throttle = (func, time) => {
+    let wait = false;
+    let result;
+    let setTime;
+    return () => {
+        if (!wait) {
+            result = func.apply(null, arguments);
+            wait = true;
+            setTime = Date.now();
+        }
+        if (Date.now() >= setTime + time) {
+            wait = false;
+            result = func.apply(null, arguments);
+        }
+        return result;
+    };
+};
