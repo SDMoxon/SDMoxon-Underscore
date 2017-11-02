@@ -80,34 +80,12 @@ _.reject = (list, predicate, context) => {
     _.each(list, cb);
     return results;
 };
-if (typeof module !== 'undefined') {
-    module.exports = _;
-}
-function binaryIndexOf(array, searchElement) {
-    let start = 0;
-    let stop = array.length - 1;
-    let mid;
-    let element;
-
-    while (start <= stop) {
-        mid = Math.floor((start + stop) / 2, 10);
-        element = array[mid];
-        if (element < searchElement) {
-            start = mid + 1;
-        } else if (element > searchElement) {
-            stop = mid - 1;
-        } else {
-            return mid;
-        }
-    }
-    return -1;
-}
 _.uniq = (array, sorted, iteratee, context) => {
     const thisParam = context || this;
     const results = [];
     let cb;
     sorted ?
-        cb = (value) => {
+    cb = (value) => {
             iteratee ? value = iteratee.call(thisParam, value) : value;
             if (value !== results[results.length - 1]) {
                 results.push(value);
@@ -120,8 +98,8 @@ _.uniq = (array, sorted, iteratee, context) => {
                 results.push(value);
             }
         };
-    _.each(array, cb);
-    return results;
+        _.each(array, cb);
+        return results;
 };
 
 _.map = (list, iteratee, context) => {
@@ -149,13 +127,13 @@ _.pluck = (list, propertyName) => {
     };
     _.each(list, cb);
     return results;
-
+    
 };
 _.reduce = (list, iteratee, memo, context) => {
     const thisParam = context || this;
     const cb = (value) => {
         memo = iteratee.call(thisParam, memo, value);
-
+        
     };
     if (memo === undefined || null) {
         if (!Array.isArray(list) && typeof (list) !== 'string') {
@@ -170,33 +148,80 @@ _.reduce = (list, iteratee, memo, context) => {
     }
     _.each(list, cb);
     return memo;
-
+    
 };
 _.every = (list, predicate, context) => {
     const thisParam = context || this;
     let shortcircuit;
     let results;
     const truthCheck = (value) => {
-      if (!predicate.call(thisParam, value)) {
-        results = false;
-        shortcircuit = true;
-      }
-      else {
-        results = true;
-      }
+        if (!predicate.call(thisParam, value)) {
+            results = false;
+            shortcircuit = true;
+        }
+        else {
+            results = true;
+        }
     };
-  
+
     if (!Array.isArray(list) && typeof (list) !== 'string') {
-      list = Object.values(list);
+        list = Object.values(list);
     }
     for (var i = 0; i < list.length; i++) {
-      truthCheck(list[i]);
-      if (shortcircuit) {
-        return results;
-      }
+        truthCheck(list[i]);
+        if (shortcircuit) {
+            return results;
+        }
     }
     return results;
-  
-  };
+    
+};
+_.some = (list, predicate, context) => {
+    const thisParam = context || this;
+    let shortcircuit;
+    let results;
+    const truthCheck = (value) => {
+        if (predicate.call(thisParam, value)) {
+            results = true;
+            shortcircuit = true;
+        }
+        else {
+            results = false;
+        }
+    };
+    
+    if (!Array.isArray(list) && typeof (list) !== 'string') {
+        list = Object.values(list);
+    }
+    for (var i = 0; i < list.length; i++) {
+        truthCheck(list[i]);
+        if (shortcircuit) {
+            return results;
+        }
+    }
+    return results;
+    
+};
 
+if (typeof module !== 'undefined') {
+    module.exports = _;
+}
+function binaryIndexOf(array, searchElement) {
+    let start = 0;
+    let stop = array.length - 1;
+    let mid;
+    let element;
 
+    while (start <= stop) {
+        mid = Math.floor((start + stop) / 2, 10);
+        element = array[mid];
+        if (element < searchElement) {
+            start = mid + 1;
+        } else if (element > searchElement) {
+            stop = mid - 1;
+        } else {
+            return mid;
+        }
+    }
+    return -1;
+}
