@@ -85,7 +85,7 @@ _.uniq = (array, sorted, iteratee, context) => {
     const results = [];
     let cb;
     sorted ?
-    cb = (value) => {
+        cb = (value) => {
             iteratee ? value = iteratee.call(thisParam, value) : value;
             if (value !== results[results.length - 1]) {
                 results.push(value);
@@ -98,8 +98,8 @@ _.uniq = (array, sorted, iteratee, context) => {
                 results.push(value);
             }
         };
-        _.each(array, cb);
-        return results;
+    _.each(array, cb);
+    return results;
 };
 
 _.map = (list, iteratee, context) => {
@@ -127,13 +127,13 @@ _.pluck = (list, propertyName) => {
     };
     _.each(list, cb);
     return results;
-    
+
 };
 _.reduce = (list, iteratee, memo, context) => {
     const thisParam = context || this;
     const cb = (value) => {
         memo = iteratee.call(thisParam, memo, value);
-        
+
     };
     if (memo === undefined || null) {
         if (!Array.isArray(list) && typeof (list) !== 'string') {
@@ -148,7 +148,7 @@ _.reduce = (list, iteratee, memo, context) => {
     }
     _.each(list, cb);
     return memo;
-    
+
 };
 _.every = (list, predicate, context) => {
     const thisParam = context || this;
@@ -174,7 +174,7 @@ _.every = (list, predicate, context) => {
         }
     }
     return results;
-    
+
 };
 _.some = (list, predicate, context) => {
     const thisParam = context || this;
@@ -189,7 +189,7 @@ _.some = (list, predicate, context) => {
             results = false;
         }
     };
-    
+
     if (!Array.isArray(list) && typeof (list) !== 'string') {
         list = Object.values(list);
     }
@@ -200,7 +200,7 @@ _.some = (list, predicate, context) => {
         }
     }
     return results;
-    
+
 };
 
 if (typeof module !== 'undefined') {
@@ -238,5 +238,30 @@ _.memoize = (fn) => {
     const cache = {};
     return (n) => {
         return cache.hasOwnProperty(n) ? cache[n] : cache[n] = (fn(n));
+    };
+};
+_.shuffle = (list) => {
+    let container = [];
+    const cb = (value) => {
+        container.push(value);
+    };
+    _.each(list, cb);
+
+
+    return () => {
+        const permitation = [];
+        const adjustableContainer = container.slice(0);
+
+        do {
+            let randomIndex = Math.floor(Math.random() * adjustableContainer.length);
+            let randomElem = adjustableContainer[randomIndex];
+            adjustableContainer.splice(randomIndex, 1);
+            if (permitation.indexOf(randomElem)) {
+                permitation.push(randomElem);
+            }
+
+        }
+        while (permitation.length < container.length);
+        return permitation;
     };
 };
