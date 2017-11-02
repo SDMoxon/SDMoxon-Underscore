@@ -211,4 +211,74 @@ describe('_', () => {
             expect(_.pluck(nums, 'a')).to.eql([1, 10, 100]);
         });
     });
+    describe('#reduce', () => {
+        it('an array is reduced if memo is not provided', () => {
+            let list = [1, 10, 100];
+            let iteratee = (memo, value) => {
+                return memo + value;
+            };
+            expect(_.reduce(list, iteratee)).to.equal(111);
+
+            list = ['a', 'b', '100'];
+            iteratee = (memo, value) => {
+                return memo + value;
+            };
+            expect(_.reduce(list, iteratee)).to.equal('ab100');
+        });
+        it('an object is reduced if memo is not provided', () => {
+            let list = { a: 1, b: 10, c: 100 };
+            let iteratee = (memo, value) => {
+                return memo + value;
+            };
+            expect(_.reduce(list, iteratee)).to.equal(111);
+
+            list = { a: 'a', b: 'b', c: '100' };
+            iteratee = (memo, value) => {
+
+                return memo + value;
+            };
+            expect(_.reduce(list, iteratee)).to.equal('ab100');
+        });
+        it('an array is reduced if memo is provided', () => {
+            let list = [1, 10, 100];
+            let iteratee = (memo, value) => {
+                return memo + value;
+            };
+            expect(_.reduce(list, iteratee)).to.equal(111);
+            const memo = '';
+            list = ['a', 'b', '100'];
+            iteratee = (memo, value) => {
+                return memo + value;
+            };
+            expect(_.reduce(list, iteratee, memo)).to.equal('ab100');
+        });
+        it('an object is reduced if memo is provided', () => {
+            const memo = '';
+            let list = { a: 1, b: 10, c: 100 };
+            let iteratee = (memo, value) => {
+                return memo + value;
+            };
+            expect(_.reduce(list, iteratee, memo)).to.equal('110100');
+
+            list = { a: function () { return 100; }, b: 'b', c: '100' };
+            iteratee = (memo, value) => {
+
+                return memo + value;
+            };
+            expect(_.reduce(list, iteratee, memo)).to.equal('function () { return 100; }b100');
+        });
+        it('calls context if context is passed', () => {
+            const memo = '';
+            const context = { a: 100 };
+            let list = { a: 1, b: 10, c: 100 };
+            let iteratee = function () {
+                this.a = 1000;
+            };
+            _.reduce(list, iteratee, null, context);
+            expect(context.a).to.equal(1000);
+
+            _.reduce(list, iteratee, memo, context);
+            expect(context.a).to.equal(1000);
+        });
+    });
 });
