@@ -389,4 +389,18 @@ describe('_', () => {
             })).to.be.eql([1, 2, 3, 4, 5]);
         });
     });
+    describe('#invoke', () => {
+        it('takes a function name as an argument and applies it to each value an array', () => {
+            let input = _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
+            expect(input).to.be.eql([[1, 5, 7], [1, 2, 3]]);
+            input = _.invoke([[5, 1, 7], [3, 2, 1]], 'slice', 1);
+            expect(input).to.be.eql([[1, 7], [2, 1]]);
+            input = _.invoke([[5, 1, 7], [3, 2, 1]], 'filter', function (elem) { return elem > 1; });
+            expect(input).to.be.eql([[5, 7], [3, 2]]);
+        });
+        it('takes a function name as an argument and applies it to each value in an object', () => {
+            let input = _.invoke({ 'A': 1, 'B': 2, 'C': 3 }, 'toString');
+            expect(input).to.be.eql(['1', '2', '3']);
+        });
+    });
 });
