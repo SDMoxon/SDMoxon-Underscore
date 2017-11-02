@@ -316,4 +316,39 @@ describe('_', () => {
             expect(obj.a).to.equal(80);
         });
     });
+    describe('#some', () => {
+
+        it('if an array value passes predicate it returns true imediately', () => {
+            const predicate = (elem) => {
+                return elem % 2 === 1;
+            };
+            expect(_.some([1, 2, 3, 4, 5, 6], predicate, null)).to.be.true;
+        });
+        it('if an object value passes predicate it returns true imediately', () => {
+            const predicate = (elem) => {
+                return elem % 2 === 1;
+            };
+            expect(_.some({ a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 }, predicate, null)).to.be.true;
+        });
+        it('if all array values fail predicate it returns false', () => {
+            const predicate = (elem) => {
+                return elem % 2 === 1;
+            };
+            expect(_.some([2, 4, 6], predicate, null)).to.be.false;
+        });
+        it('if all object values fail predicate it returns false', () => {
+            const predicate = (elem) => {
+                return elem % 2 === 1;
+            };
+            expect(_.some({ b: 2, d: 4, f: 6 }, predicate, null)).to.be.false;
+        });
+        it('if given a context it will call it', () => {
+            const obj = { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6 };
+            const predicate = function () {
+                this.a = 80;
+            };
+            _.some([7, 8, 23, 67, 34, 12], predicate, obj);
+            expect(obj.a).to.equal(80);
+        });
+    });
 });
