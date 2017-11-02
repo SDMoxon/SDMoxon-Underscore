@@ -292,3 +292,11 @@ _.sortBy = (list, iteratee, context) => {
     _.each(list, cb);
     return checkedList.sort(sortCb);
 };
+_.zip = (...args) => {
+    const results = [];
+    const cb = (array, i) => {
+        results.push(_.pluck(args, i));
+    };
+    _.each(args, cb);
+    return results;
+};
