@@ -95,8 +95,14 @@ describe('_', () => {
         it('returns the index for the value specified', () => {
             expect(_.indexOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 4)).to.equal(3);
         });
-        it('returns the index for the value specified', () => {
+        it('returns the -1 if the value specified is not pressent', () => {
+            expect(_.indexOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 11)).to.equal(-1);
+        });
+        it('returns the index for the value specified using binary search', () => {
             expect(_.indexOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, true)).to.equal(0);
+        });
+        it('returns -1 if given an unordered and true', () => {
+            expect(_.indexOf([3, 9, 2, 1, 5, 7, 8, 6, 4, 10], 1, true)).to.equal(-1);
         });
     });
     describe('#filter', () => {
