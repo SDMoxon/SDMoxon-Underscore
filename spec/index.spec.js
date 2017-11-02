@@ -196,13 +196,19 @@ describe('_', () => {
     });
     describe('#contains', () => {
         it('returns true for a value pressent in an array', () => {
-          expect(_.contains([1, 2, 3, 4, 5], 2)).to.be.true;
+            expect(_.contains([1, 2, 3, 4, 5], 2)).to.be.true;
         });
         it('returns true for a value pressent in an object', () => {
-          expect(_.contains([1, 2, 3, 4, 5], 2)).to.be.true;
+            expect(_.contains([1, 2, 3, 4, 5], 2)).to.be.true;
         });
         it('returns true if value is present in slice begining with fromIndex', () => {
-          expect(_.contains([1, 1, 1, 1, 1, 1, 2, 3, 4, 5], 1, 6)).to.be.false;
+            expect(_.contains([1, 1, 1, 1, 1, 1, 2, 3, 4, 5], 1, 6)).to.be.false;
         });
-      });
+    });
+    describe('#pluck', () => {
+        it('returns an array of values of keys matching the propertyName provided', () => {
+            const nums = [{ a: 1, b: 2, c: 3, d: 4, e: 5 }, { a: 10, b: 20, c: 30, d: 40, e: 50 }, { a: 100, b: 200, c: 300, d: 400, e: 500 }];
+            expect(_.pluck(nums, 'a')).to.eql([1, 10, 100]);
+        });
+    });
 });
