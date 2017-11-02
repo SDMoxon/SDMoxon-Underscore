@@ -50,7 +50,7 @@ _.indexOf = (list, value, sorted) => {
         const cb = (elem, i) => {
             if (elem === value) found = i;
         };
-        _.each(list,cb);
+        _.each(list, cb);
         return found;
     }
     else {
@@ -102,5 +102,36 @@ function binaryIndexOf(array, searchElement) {
     }
     return -1;
 }
+_.uniq = (array, sorted, iteratee, context) => {
+    const thisParam = context || this;
+    const results = [];
+    let cb;
+    sorted ?
+        cb = (value) => {
+            iteratee ? value = iteratee.call(thisParam, value) : value;
+            if (value !== results[results.length - 1]) {
+                results.push(value);
+            }
+        }
+        :
+        cb = (value) => {
+            iteratee ? value = iteratee.call(thisParam, value) : value;
+            if (results.indexOf(value) === - 1) {
+                results.push(value);
+            }
+        };
+    _.each(array, cb);
+    return results;
+};
+
+_.map = (list, iteratee, context) => {
+    const thisParam = context || this;
+    const results = [];
+    const cb = (value) => {
+        results.push(iteratee.call(thisParam, value));
+    };
+    _.each(list, cb);
+    return results;
+};
 
 
