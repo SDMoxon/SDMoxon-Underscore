@@ -347,12 +347,26 @@ _.intersection = (...args) => {
         return a.length - b.length;
     });
     const checkArray = arrays.shift();
-    
+
     const cb = (value) => {
         if (result.indexOf(value) === -1 && arrays.every((internalValue) => internalValue.indexOf(value) !== -1)) {
             result.push(value);
         }
     };
-    _.each(checkArray,cb);
+    _.each(checkArray, cb);
     return result;
+};
+_.difference = (...args) => {
+    const result = [];
+    const rest = _.flatten(args, true);
+    const cb = (value) => {
+        if (_.filter(rest, (filterItem) => {
+            return filterItem === value;
+        }).length < 2) {
+            result.push(value);
+        }
+    };
+    _.each(rest, cb);
+    return result;
+
 };
