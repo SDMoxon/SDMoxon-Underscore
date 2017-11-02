@@ -234,3 +234,9 @@ _.once = (fn) => {
         }
     };
 };
+_.memoize = (fn) => {
+    const cache = {};
+    return (n) => {
+        return cache.hasOwnProperty(n) ? cache[n] : cache[n] = (fn(n));
+    };
+};
